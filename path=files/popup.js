@@ -1,10 +1,12 @@
+// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
   const roleInput = document.getElementById('role');
   const msgInput = document.getElementById('msg');
   const roleError = document.getElementById('roleError');
   const msgError = document.getElementById('msgError');
 
-  document.getElementById('setRole').onclick = () => {
+  // Set Role button handler
+  document.getElementById('setRole').addEventListener('click', () => {
     const role = roleInput.value;
     roleError.style.display = 'none';
 
@@ -23,9 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         roleError.style.display = 'block';
       }
     });
-  };
+  });
 
-  document.getElementById('send').onclick = () => {
+  // Send Message button handler
+  document.getElementById('send').addEventListener('click', () => {
     const content = msgInput.value.trim();
     msgError.style.display = 'none';
 
@@ -44,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         msgError.style.display = 'block';
       }
     });
-  };
+  });
 
   // Add input validation
   roleInput.addEventListener('input', () => {
