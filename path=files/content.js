@@ -3,15 +3,21 @@ console.log('Content script loaded');
 
 // Listen for messages from the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log("Content script received message:", request);
+
   if (request.type === 'getData') {
     // Handle data collection from the page
     const pageData = {
       title: document.title,
       url: window.location.href
     };
+    console.log("Sending page data:", pageData);
     sendResponse(pageData);
   }
+  
   if (request.type === 'incomingMessage') {
+    console.log(`Showing notification from Role ${request.fromRole}`);
+    
     // Create and show notification
     const notification = document.createElement('div');
     notification.style.cssText = `
@@ -31,6 +37,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // Remove notification after 5 seconds
     setTimeout(() => {
       notification.remove();
+      console.log("Notification removed");
     }, 5000);
   }
   return true;
