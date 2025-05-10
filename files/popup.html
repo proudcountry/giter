@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assign Roles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <h2>Assign a Role</h2>
+  <label for="role">Role (1, 2, 3):</label>
+  <input type="number" id="role" min="1" max="3" />
+  <button id="assign">Assign Role</button>
+
+  <script>
+    document.getElementById("assign").addEventListener("click", () => {
+      const role = parseInt(document.getElementById("role").value, 10);
+      if (role >= 1 && role <= 3) {
+        chrome.runtime.sendMessage({ type: "assignRole", role }, (response) => {
+          if (response.success) {
+            alert(`Role ${role} assigned to this tab.`);
+          } else {
+            alert("Failed to assign role.");
+          }
+        });
+      } else {
+        alert("Please enter a valid role (1, 2, or 3).");
+      }
+    });
+  </script>
+</body>
+</html>
